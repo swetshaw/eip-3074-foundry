@@ -51,7 +51,6 @@ function example() public {
             <gas>,
             <to_addr>,
             <value>, // NOTE: This is currently sent from the Invoker contract, NOT the `authorized` account.
-            <valueExt>, // Must always be `0` per the current 3074 spec, reserved for future use.
             <args_offset_mem>,
             <args_length>,
             <ret_offset_mem>,
