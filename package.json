@@ -1,0 +1,22 @@
+{
+  "name": "eip-3074-foundry",
+  "version": "1.0.0",
+  "description": "This repository contains patched versions of [`foundry`][foundry] & [the `solidity` compiler][solc], integrated with patches to [`revm`][revm] / [`ethers-rs`][ethers-rs], that support the [EIP-3074][eip-3074] opcodes (`AUTH` & `AUTHCALL`).",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "deploy": "npx ts-node scripts-ethers/deploy.ts "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^6.12.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
