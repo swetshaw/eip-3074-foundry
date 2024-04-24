@@ -15,7 +15,7 @@ build-solc-patch:
 	@cd solidity && \
 		mkdir -p build && \
 		cd build && \
-		cmake .. && \
+		cmake .. -DSTRICT_Z3_VERSION=OFF && \
 		make && \
 		mkdir -p ../../bin && \
 		cp solc/solc ../../bin/solc
