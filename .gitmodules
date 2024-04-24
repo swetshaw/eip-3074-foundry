@@ -3,7 +3,7 @@
 	url = https://github.com/foundry-rs/forge-std
 [submodule "forge-3074-patch"]
 	path = forge-3074-patch
-	url = https://github.com/clabby/foundry
+	url = https://github.com/enitrat/foundry
 [submodule "lib/solady"]
 	path = lib/solady
 	url = https://github.com/vectorized/solady
