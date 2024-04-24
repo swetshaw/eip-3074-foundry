@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Heading, Text, VStack, Image, useToast } from '@chakra-ui/react';
 import { ethers } from 'ethers';
+import logo from './logo.svg'; // Ensure the logo path is correct
 import kkrt from './kkrt.jpg'
 import AuthorizedTransferABI from './abis/AuthorizedTransfer.json'
 import ERC20_ABI from './abis/MyToken.json'
@@ -19,10 +20,9 @@ function App() {
   const tokenAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
   const contractAddressVyper = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9" // Vyper impl of Invoker contract address
   const privateKey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80" // private key of first anvil account
-  const authority  = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+  const authority  = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
 
   const commitMessage = 'newcommit';
-
   // Function to connect to the wallet
   async function connectWallet() {
     if (!connected) {
@@ -88,22 +88,7 @@ function App() {
         const signer = await provider.getSigner()
         const authorizedTransfer = new ethers.Contract(contractAddress, AuthorizedTransferABI.abi, signer);
 
-
         console.log("Authorized Transfer contract", authorizedTransfer);
-
-        const commit = {
-          validAfter: 0,
-          validUntil: 1714040667,
-          data: getEmptyBytes24(),
-        };
-
-        console.log("Commit", commit);
-
-        const coder = ethers.AbiCoder.defaultAbiCoder()
-        // const commitEncoded = coder.encode(
-        //   ["uint32", "uint32", "bytes24" ],
-        //   [commit.validAfter, commit.validUntil, commit.data]
-        // );
 
         const commitEncoded = ethers.encodeBytes32String(commitMessage)
         console.log("Commit Encoded", commitEncoded);
@@ -201,18 +186,6 @@ function App() {
     console.log("v", v);
 
     // Prepare the data for the calls
-    const call1 = {
-      target: tokenAddress,
-      value: 0,
-      data: tokenContract.interface.encodeFunctionData("approve", ["0x93EDF6c557C61c4E73F152935e8D9eb6c0dFf0A4", ethers.parseEther("100000")])
-    };
-
-    const call2 = {
-      target: tokenAddress,
-      value: 0,
-      data: tokenContract.interface.encodeFunctionData("transferFrom", ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", receiverAddress, ethers.parseEther("10000")])
-    };
-
     const call0 = {
       target: tokenAddress,
       value: 0,
