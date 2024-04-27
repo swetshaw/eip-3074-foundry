@@ -26,15 +26,15 @@ contract GasSponsorInvokerTest is Test {
 
         assertEq(initial_sender, address(0));
 
-        uint256 nonce = vm.getNonce(authority.addr);
+        uint256 nonce = vm.getNonce(authority);
 
-        bytes32 commitEncoded = bytes32(abi.encode("commit"));
+        bytes32 commitEncoded = keccak256("commit");
 
         bytes32 digest = gasSponsorInvoker.getDigest(commitEncoded, nonce);
         (uint8 _v, bytes32 _r, bytes32 _s) = vm.sign(authority.privateKey, digest);
 
         bytes memory data = abi.encodeWithSelector(
-            senderRecorder.recordSender.selector
+            SenderRecorder.recordSender.selector
         );
 
         gasSponsorInvoker.sponsorCall(
@@ -46,6 +46,7 @@ contract GasSponsorInvokerTest is Test {
             address(senderRecorder),
             data
         );
+
         assertEq(senderRecorder.lastSender(), authority.addr);
     }
 }
