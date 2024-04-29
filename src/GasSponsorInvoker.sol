@@ -5,6 +5,7 @@ pragma solidity ^0.8.23;
 import { BaseAuth } from "./BaseAuth.sol";
 
 /// @title Gas Sponsor Invoker
+/// @author enitrat <https://github.com/kkrt-labs/kakarot/blob/main/experimental_contracts/src/EIP3074/GasSponsorInvoker.sol>
 /// @notice Invoker contract using EIP-3074 to sponsor gas for authorized transactions
 contract GasSponsorInvoker is BaseAuth {
     /// @notice Executes a call authorized by an external account (EOA)
@@ -29,7 +30,7 @@ contract GasSponsorInvoker is BaseAuth {
         require(authSimple(authority, commit, v, r, s), "Authorization failed");
 
         // Execute the call as authorized by the signer
-        success = authCallSimple(to, data, 0, gasleft());
+        success = authCallSimple(to, data, 0, 0);
         require(success, "Call execution failed");
     }
 }

@@ -8,13 +8,16 @@
     "test": "test"
   },
   "scripts": {
-    "deploy": "npx ts-node scripts-ethers/deploy.ts "
+    "deploy": "npx ts-node scripts-ethers/deploy.ts ",
+    "gas-sponsor": "npx ts-node scripts-ethers/gasSponsor.ts "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ethers": "^6.12.0"
+    "dotenv": "^16.4.5",
+    "ethers": "^6.12.0",
+    "viem": "^2.9.26"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

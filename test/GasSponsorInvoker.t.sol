@@ -13,11 +13,14 @@ contract GasSponsorInvokerTest is Test {
     SenderRecorder public senderRecorder;
 
     VmSafe.Wallet public authority;
+    VmSafe.Wallet public gasSponsor;
 
     function setUp() public {
         authority = vm.createWallet("authority");
         gasSponsorInvoker = new GasSponsorInvoker();
         senderRecorder = new SenderRecorder();
+
+        gasSponsor = vm.createWallet("gasSponsor");
     }
 
     function test_invoke() external {
@@ -33,10 +36,13 @@ contract GasSponsorInvokerTest is Test {
         bytes32 digest = gasSponsorInvoker.getDigest(commitEncoded, nonce);
         (uint8 _v, bytes32 _r, bytes32 _s) = vm.sign(authority.privateKey, digest);
 
+        console.log("authority.addr", authority.addr);
+
         bytes memory data = abi.encodeWithSelector(
             SenderRecorder.recordSender.selector
         );
 
+        vm.startPrank(gasSponsor.addr);
         gasSponsorInvoker.sponsorCall(
             authority.addr,
             commitEncoded,
